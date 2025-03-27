@@ -1,0 +1,48 @@
+const http = require("http");
+
+const server = http.createServer((req, res) => {
+    if (req.url === "/") {
+        return res.end("Hello World");
+    }
+
+    if (req.url === "/news") {
+        return res.end("News");
+    }
+
+    if (req.url === "/about") {
+        let obj = {
+            name: "John",
+            data: [
+                {
+                    newsTitle: "News1",
+                    newsContent: "Content1",
+                    newsDate: "Date1",
+                    newsAuthor: "Hello"
+                },
+                {
+                    newsTitle: "News2",
+                    newsContent: "Content2",
+                    newsDate: "Date2",
+                    newsAuthor: "Hello2"
+                }
+            ]
+        };
+        return res.end(JSON.stringify(obj)); // Return to prevent extra res.end()
+    }
+
+    if (req.url === "/contact") {
+        return res.end("Contact");
+    }
+
+    if (req.url === "/jungle") {
+        return res.end("Welcome to the Jungle!"); // Add a response instead of leaving it empty
+    }
+
+    // Default 404 Not Found Response
+    res.statusCode = 404;
+    res.end("Page Not Found");
+});
+
+server.listen(8000, () => {
+    console.log("Server running at http://localhost:8000");
+});
